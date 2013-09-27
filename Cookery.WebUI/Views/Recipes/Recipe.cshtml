@@ -1,0 +1,36 @@
+﻿@model Cookery.WebUI.Models.RecipeEditing
+
+@{
+    ViewBag.Title = "Recipe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+
+<div>
+    <div class="leftSide"><img src="@Url.Action("GetImage", "Recipes", new { Model.Id })" /></div>
+    <div class="rightSide">
+        <h3>Состав</h3>
+        @foreach (var item in Model.Consist)
+        {
+            <div>
+                <span>@item.Product</span> <span>@item.Volume</span>
+            </div>
+        }
+    </div>
+</div>
+<div>
+    @foreach (var item in Model.CookingItems)
+    {
+        <div>
+            <div class="leftSide"><img src="@Url.Action("GetImage", "Recipes", new { item.ImageId })" /></div>
+            <div class="rightSide"><p>@item.Text</p></div>
+        </div>
+    }
+</div>
+<div>
+    @foreach (var image in Model.ImagesAnotherUsers)
+    {
+        
+    }
+</div>

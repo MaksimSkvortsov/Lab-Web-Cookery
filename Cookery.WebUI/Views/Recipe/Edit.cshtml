@@ -1,0 +1,41 @@
+﻿@model Cookery.WebUI.Models.RecipeEditing
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if(Model.Id == 0)
+{
+    <h2>Добавление рецепта</h2>
+}
+else
+{
+    <h2>Редактирование рецепта</h2>
+}
+
+@using(Html.BeginForm("Recipe","Recipe", FormMethod.Post ))
+{
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Name)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Category)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model=>model.CategoryId, (IEnumerable<SelectListItem>)ViewBag.Categories)
+        @Html.ValidationMessageFor(model => model.Category)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Use)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model=>model.UseId, (SelectList)ViewBag.Uses)
+        @Html.ValidationMessageFor(model => model.Use)
+    </div>
+}

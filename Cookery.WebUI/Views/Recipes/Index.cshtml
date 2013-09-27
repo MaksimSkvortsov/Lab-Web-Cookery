@@ -1,0 +1,18 @@
+﻿@model Cookery.WebUI.Models.ParametresShowRecipesModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="searchRecipeParametres">
+    @Html.ActionLink("Категория", "")
+    @Html.ActionLink("Назначение", "")
+    @Html.ActionLink("Время приготовления", "")
+    @Html.ActionLink("Поиск", "")
+</div>
+
+<div id="recipes">
+    @{ Html.RenderAction("Recipes"); }
+</div>
+

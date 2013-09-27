@@ -1,0 +1,13 @@
+﻿@model Cookery.WebUI.Models.CookingItem
+
+<div class="rightColumn smallColumn">
+    @Html.TextAreaFor(m => m.Text)
+</div>
+
+<div class="leftColumn smallColumn">
+    @if (Model.ImageId != null)
+    {
+        <img width="300" height="200" src="@Url.Action("GetImage", "Recipe", new { Model.ImageId })" />
+    }
+    <div>Загрузить изображение <input type="file" name="Image" /></div>
+</div>

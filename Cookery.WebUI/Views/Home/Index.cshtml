@@ -1,0 +1,13 @@
+﻿@Model 
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h3>@Html.ActionLink("Популярное", "", "Recipes")</h3>
+
+@{ Html.RenderAction("GetPresentationPopularRecipes"); }
+
+<h3>@Html.ActionLink("Новое", "", "Recipes")</h3>
+
+@{ Html.RenderAction("GetPresentationNewRecipes"); }

@@ -1,0 +1,149 @@
+﻿@model Cookery.WebUI.Models.RecipeEditing
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if(Model.Id == 0)
+{
+    <h2>Добавление нового рецепта</h2>
+}
+else
+{
+    <h2>Редактирование рецепта</h2>
+}
+
+@using (Html.BeginForm("Recipe", "Recipe", FormMethod.Post))
+{
+    <div class="recipeInfo">
+        <div class="rightColumn">
+            <table>
+                <thead>
+                    <tr>
+                        <td>
+                            Ингридиент
+                        </td>
+                        <td>
+                            Количество
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Consist != null)
+                    {
+                        foreach (var item in Model.Consist)
+                        {
+                            Html.RenderPartial("ConsistItemPartial", item);
+                        }
+                    }
+                    else
+                    {
+                        Html.RenderPartial("ConsistItemPartial", new Cookery.Domain.Entities.RecipeProduct());
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td /> <td /> <td>@Html.ActionLink("Добавить", "")</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="leftColumn">
+            <table>
+                <thead>
+                    <tr>
+                        <tr>Информация</tr>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Name)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Name)
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Category)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editor-field">
+                            @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories)
+                            @Html.ValidationMessageFor(model => model.Category)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Use)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editor-field">
+                            @Html.DropDownListFor(model => model.UseId, (SelectList)ViewBag.Uses)
+                            @Html.ValidationMessageFor(model => model.Use)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            <label>Время приготовления</label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editor-field">
+                            От
+                            @Html.EditorFor(m => m.MinTimeForCooking)
+                            До
+                            @Html.EditorFor(m => m.MaxTimeForCooking)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(m => m.ImageByAuhor)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editor-field">
+                            @if (Model.ImageByAuhor == null)
+                            {
+
+                            }
+                            else
+                            {
+                                <img width="300" height="200" src="@Url.Action("GetImage", "Recipe", new { Model.ImageByAuhor.Id })" />
+                            }
+                            <div><input type="file" name="Image" /></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>        
+    </div>
+    <div>
+        <h3>Этапы приготовления</h3>
+    </div>
+    <div class="recipeStages">
+        @if (Model.CookingItems != null)
+        {
+            for (int i = 0; i < Model.CookingItems.Count(); i++)
+            {
+                Html.RenderPartial("StageOfCookingPartial", Model.CookingItems[i]);
+            }
+        }
+        @{ Html.RenderPartial("StageOfCookingPartial", new Cookery.WebUI.Models.CookingItem()); }
+    </div>
+}

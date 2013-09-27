@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Cookery.WebUI.Models.PresentationRecipe>
+
+@foreach (var recipe in Model)
+{
+    <div class="recipeDetailedBox">
+        <h3>@recipe.Name</h3>
+        <img width="200" height="150" src=" @Url.Action("GetImage", "Recipes", new { id = recipe.Id })" />
+        <div class="consistRecipe">
+            @foreach (var item in recipe.Consist)
+            {
+                <div>
+                    @item.Product.Name: @item.Volume
+                </div>
+            }
+        </div>
+        @Html.ActionLink("Подробнее", "Recipe", "Recipes", new { id = recipe.Id }, null)
+    </div>
+}

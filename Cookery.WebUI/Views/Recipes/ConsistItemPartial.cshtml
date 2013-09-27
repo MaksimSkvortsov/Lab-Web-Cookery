@@ -1,0 +1,13 @@
+﻿@model Cookery.Domain.Entities.RecipeProduct
+
+<tr>
+    <td>
+        @Html.TextBoxFor(r=>r.Product.Name, new { @class = "medium" })
+    </td>
+    <td>
+        @Html.TextBoxFor(r=>r.Volume, new { @class = "small" })        
+    </td>
+    <td>
+        @Html.ActionLink("Удалить", "")
+    </td>
+</tr>

@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Cookery.WebUI.Models.PresentationRecipe>
+
+@foreach(var recipe in Model)
+{
+    <div class="recipeSmallBox">
+        <h3>@recipe.Name</h3>
+        <img width="200" height="150" src=" @Url.Action("GetImage", "Recipes", new { recipe.Id })" />
+        <div>
+            @Html.ActionLink("Подробнее", "Recipe", "Recipes", new { id = recipe.Id }, null)
+        </div>
+    </div>
+}
